@@ -48,6 +48,7 @@ public class ShoppingCartControllerAdvice {
     @ExceptionHandler({
             HttpMessageNotReadableException.class,
             ConstraintViolationException.class,
+            NullPointerException.class
     })
     public ResponseEntity<String> handleInvalidRequest(final RuntimeException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
