@@ -16,10 +16,10 @@ public class AuthorizationExtractor {
 
     private static void validateHeader(String header) {
         if (header == null) {
-            throw new InvalidTokenException();
+            throw new InvalidTokenException("토큰을 추출할 수 없습니다.");
         }
         if (!header.startsWith(BEARER_TYPE)) {
-            throw new InvalidTokenException();
+            throw new InvalidTokenException("토큰을 추출할 수 없습니다.");
         }
     }
 }
