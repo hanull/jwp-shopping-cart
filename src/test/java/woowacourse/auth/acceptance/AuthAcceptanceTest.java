@@ -61,9 +61,13 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     void myInfoWithWrongBearerAuth() {
         // given
         CustomerAcceptanceFixture.saveCustomer();
+        TokenRequest request = new TokenRequest("username", "password12!@");
+
+        TokenResponse tokenResponse = SimpleRestAssured.toObject(SimpleRestAssured.post("/api/auth/token", request),
+                TokenResponse.class);
 
         // when
-        String invalidToken = "Cearer aaaaaa.bbbbbb.ccccc";
+        String invalidToken = "Basic " + tokenResponse.getAccessToken();
         ExtractableResponse<Response> authResponse =
                 SimpleRestAssured.get("/api/customers/me", new Header("Authorization", invalidToken));
 
